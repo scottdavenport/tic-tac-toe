@@ -48,9 +48,10 @@ import './index.css';
       super(props);
       this.state = {
         history: [{
-          squares: Array(9).fill(null),
+          squares: Array(9).fill(null)
         }],
-        xIsNext: true,
+        stepNumber: 0,
+        xIsNext: true
       }
     }
 
@@ -70,13 +71,31 @@ import './index.css';
       });
     }
 
+    jumpTo(step) {
+      this.setState({
+        stepNumber: step,
+        xIsNext: (step % 2) === 0,
+      });
+    }
+
     render() {
       const history = this.state.history;
       const current = history[history.length - 1];
       const winner = calculateWinner(current.squares);
 
-      let status;
+      const moves = history.map((step, move) => {
+        const desc = move ?
+          'Go to move #' + move :
+          'Go to game start';
+        return (
+          <li key={move}>
+            <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          </li>
+        );
+      });
 
+
+      let status;
       if (winner) {
         status = 'Winner: ' + winner; 
       } else {
@@ -93,7 +112,7 @@ import './index.css';
           </div>
           <div className='game-info'>
             <div>{status}</div>
-            <ol>{/* TODO */}</ol>
+            <ol>{{moves}}</ol>
           </div>
         </div>
       );
