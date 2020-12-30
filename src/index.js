@@ -7,7 +7,7 @@ import './index.css';
       <button className='square' onClick={props.onClick}>
         {props.value}
       </button>
-    )
+    );
   }
   
   class Board extends React.Component {
@@ -52,7 +52,7 @@ import './index.css';
         }],
         stepNumber: 0,
         xIsNext: true
-      }
+      };
     }
 
     handleClick(i) {
@@ -65,17 +65,17 @@ import './index.css';
       squares[i] = this.state.xIsNext ? 'X' : 'O';
       this.setState({
         history: history.concat([{
-          squares: squares,
+          squares: squares
         }]),
         stepNumber: history.length,
-        xIsNext: !this.state.xIsNext,
+        xIsNext: !this.state.xIsNext
       });
     }
 
     jumpTo(step) {
       this.setState({
         stepNumber: step,
-        xIsNext: (step % 2) === 0,
+        xIsNext: (step % 2) === 0
       });
     }
 
@@ -108,12 +108,12 @@ import './index.css';
           <div className='game-board'>
             <Board
               squares={current.squares}
-              onClick={(i) => this.handleClick(i)}
+              onClick={i => this.handleClick(i)}
             />
           </div>
           <div className='game-info'>
             <div>{status}</div>
-            <ol>{{moves}}</ol>
+            <ol>{moves}</ol>
           </div>
         </div>
       );
